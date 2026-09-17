@@ -1,0 +1,42 @@
+# Secrets & environment — never commit real values
+.env
+.env.local
+.env.staging
+.env.production
+.env.*.local
+*.pem
+*.key
+credentials.json
+wp-config.php
+wp-config-local.php
+
+# WordPress core (this repo ships agent/docs, not a WP install)
+/wordpress/
+/wp-admin/
+/wp-includes/
+/wp-content/uploads/
+/wp-content/upgrade/
+/wp-content/cache/
+
+# Dependencies
+/node_modules/
+/vendor/
+composer.lock
+
+# Build output
+/dist/
+/build/
+*.map
+
+# Database dumps / backups
+*.sql
+*.sql.gz
+*.zip
+!examples/**/*.zip
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log

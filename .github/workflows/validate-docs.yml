@@ -1,0 +1,26 @@
+name: Validate Docs
+
+on:
+  pull_request:
+    branches: [main, staging]
+  push:
+    branches: [main, staging]
+
+jobs:
+  check-required-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check required AI-DLC docs exist
+        run: bash scripts/validation/check-required-docs.sh
+
+      - name: Check CLAUDE.md and AGENTS.md line counts stay in sync
+        run: |
+          claude_lines=$(wc -l < CLAUDE.md)
+          agents_lines=$(wc -l < AGENTS.md)
+          diff_lines=$(( claude_lines > agents_lines ? claude_lines - agents_lines : agents_lines - claude_lines ))
+          echo "CLAUDE.md: $claude_lines lines, AGENTS.md: $agents_lines lines, diff: $diff_lines"
+          if [ "$diff_lines" -gt 20 ]; then
+            echo "::warning::CLAUDE.md and AGENTS.md have drifted apart by more than 20 lines — verify they're still in sync (see CONTRIBUTING.md)."
+          fi
