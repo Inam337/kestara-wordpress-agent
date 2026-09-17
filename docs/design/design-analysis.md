@@ -9,7 +9,7 @@
 | # | Question | Answer |
 |---|---|---|
 | 1 | Where is the approved design source? | |
-| 2 | Figma, Claude Design, XD, Sketch, screenshots, or existing website? | |
+| 2 | Design source format — Figma / **Claude/Claude Code design handoff (HTML prototype, e.g. `*.dc.html`)** / XD / Sketch / screenshots / existing website / other? | |
 | 3 | Which pages are designed? | |
 | 4 | Are desktop designs available? | |
 | 5 | Tablet? | |
@@ -26,6 +26,25 @@
 | 16 | Is a design system available? | |
 | 17 | Are spacing/breakpoint rules documented? | |
 | 18 | Are dark/light modes required? | |
+
+## Claude / Claude Code Design Handoff Conversion Notes
+
+_Only fill this section in if question 2 above is a Claude/Claude Code HTML design handoff. See `CLAUDE.md`
+§8.1 for the full rule set._
+
+- [ ] Confirmed this is a reference specification, not production code, with the developer.
+- [ ] Identified every inline `style="..."` pattern that needs a real stylesheet class.
+- [ ] Identified every `style-hover="..."` that needs a real `:hover` rule.
+- [ ] Identified proprietary templating (`sc-if`, `sc-for`, `{{ }}`, `data-props`/`renderVals()`) and how
+      each will be unrolled (static markup vs. real conditional/loop in the target stack).
+- [ ] Transcribed all repeated data arrays (cards, copy, colors) verbatim — none re-invented or paraphrased.
+- [ ] Identified tool-authoring artifacts to strip (`support.js`, `_ds/...` bundle, embedded SVG
+      `<metadata>`/C2PA blocks).
+- [ ] Identified any live Google Fonts `<link>` to replace with self-hosted, subsetted fonts.
+- [ ] Identified components repeated verbatim across multiple prototype files that must be built once and
+      reused, not duplicated per page.
+- [ ] Recorded every literal placeholder token (e.g. `[PLACEHOLDER]`) found in the handoff — these stay as
+      visible placeholders until the developer supplies real values; nothing is invented.
 
 ## Analysis
 

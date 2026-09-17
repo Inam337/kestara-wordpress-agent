@@ -328,7 +328,15 @@ Capture known plugin constraints early, then perform the detailed plugin-selecti
 
 **Developer Questions**
 1. Where is the approved design source?
-2. Figma, Claude Design, XD, Sketch, screenshots, or existing website?
+2. What format is the design source? Ask explicitly — do not assume:
+   - **Figma** (link/file, with or without Dev Mode access)
+   - **Claude / Claude Code design handoff** — HTML/CSS/JS prototype files (e.g. `*.dc.html`, or any
+     "design_handoff_*" folder produced by a Claude design tool)
+   - XD
+   - Sketch
+   - Screenshots/images only
+   - An existing live website (see §28 for the deeper migration audit that also applies)
+   - Other
 3. Which pages are designed?
 4. Are desktop designs available?
 5. Tablet?
@@ -349,6 +357,38 @@ Capture known plugin constraints early, then perform the detailed plugin-selecti
 **Your Actions — analyze:**
 Layout, typography, colors, spacing, containers, grid, breakpoints, components, states, interactions,
 assets, content hierarchy, accessibility implications, dynamic content requirements.
+
+### 8.1 Claude / Claude Code Design Handoff Rule
+
+When the design source is a **Claude/Claude Code HTML design handoff** (question 2 above), treat it as a
+**reference specification, not production code**, and be explicit with the developer that this is how
+you're treating it. These prototypes commonly:
+
+- Use **inline `style="..."` attributes** for every element, plus non-standard pseudo-attributes like
+  `style-hover="..."` to simulate `:hover` — none of this may be ported as-is. Convert every inline style
+  into real, organized stylesheets (`styles/base`, `styles/components`, `styles/layouts`, `styles/pages` —
+  or this project's equivalent from Phase 08's theme structure), and convert `style-hover` into real
+  `:hover` CSS rules.
+- Use a proprietary templating dialect (tags such as `<x-dc>`, `<helmet>`, `sc-if`, `sc-for`, `{{ }}`
+  interpolation, a `<script type="text/x-dc" data-dc-script>` block with a `Component extends DCLogic`
+  class). None of this is real HTML/CSS/JS — unroll `sc-for` loops into either static markup (for content
+  that won't change) or a real data-driven loop in the target stack, `sc-if` into real conditionals, and
+  transcribe the `data-props`/`renderVals()` data (repeated card arrays, copy, colors) verbatim as the
+  actual content model — never re-invent or paraphrase the copy it contains.
+- Embed tool-authoring artifacts that must be stripped before reuse: a `support.js` script, a `_ds/...`
+  design-system CSS/JS bundle, and — inside any accompanying SVG assets — embedded C2PA/provenance
+  `<metadata>` blocks that bloat file size and carry no rendering value.
+- Reference Google Fonts by a live `<link>` in the prototype; for production, self-host and subset the
+  actual weights used instead of keeping the render-blocking Google Fonts request, per the Performance
+  phase (§21).
+- May reuse the same shared components (a loader, header/nav, footer) verbatim across multiple `*.dc.html`
+  files in the handoff folder — build each shared component **once** in the target stack rather than
+  duplicating it per page, exactly as §1's "prefer reusable components" principle requires.
+
+Ask the developer to confirm the design handoff folder's own README/instructions (if any) for anything
+project-specific — a handoff often documents its own design tokens, fidelity level, and open placeholders
+(e.g. literal `[PLACEHOLDER]` tokens for a not-yet-decided URL or contact address) that must be preserved
+as visible placeholders, never invented values, until the developer supplies the real ones.
 
 **Deliverables**
 ```text
