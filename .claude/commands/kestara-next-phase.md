@@ -25,5 +25,6 @@ satisfied on your own judgment when developer approval is explicitly required �
 
 **If every condition is met and the gate is satisfied:** run `/kestara-phase-report` if it hasn't been run
 yet for this phase, update `docs/ai-dlc/phase-status.md` to the next phase number/name from `CLAUDE.md` §2
-with status "not started," and ask the relevant first group of questions for that next phase from the
-matching section of `CLAUDE.md`.
+with status "not started," and ask that next phase's first relevant question — **one question at a time**,
+per the Question Behavior rule in `CLAUDE.md` §3, not the whole list at once. Wait for the developer's
+answer before asking the next question, and continue this way through every question in the new phase.

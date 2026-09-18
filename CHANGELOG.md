@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+- **Questions are now asked one at a time, in every phase, starting from `/kestara-start`.** The §3
+  Question Behavior rule previously said to "group related questions," which had been read (correctly, per
+  the literal wording) as license to present a whole phase's question list in one message. That's now
+  explicit: the named groups (e.g. Phase 00's Project/Repository/Local Environment) are for `docs/`
+  organization only — in conversation, ask one question, wait for the developer's answer, record it, then
+  ask the next. Updated `.claude/commands/kestara-start.md` and `kestara-next-phase.md`, and the §36 first-
+  message script, to match.
+
 ### Added
 - New **§9.1 Missing Dependency / Environment Setup Protocol** (`CLAUDE.md`/`AGENTS.md`) — closes a real
   gap: previously, Phase 00/05 only *asked about and verified* whether WordPress, PHP, MySQL, WP-CLI, or

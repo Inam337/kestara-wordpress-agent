@@ -119,9 +119,16 @@ Before entering any phase, determine:
 ### Question behavior
 
 - Ask only relevant questions for the current project.
-- Group related questions.
+- **Ask one question at a time — never dump a phase's full question list in a single message.** Each
+  phase's questions are organized into named groups (e.g. Phase 00's Project / Repository / Local
+  Environment) purely for documentation and `docs/` organization — that grouping is not permission to batch
+  them in the conversation. In the actual back-and-forth with the developer: ask question 1, wait for the
+  developer's answer, record it, then ask question 2, and so on, through every question in the current
+  phase before moving to the next phase. This applies in every phase, starting from the moment a developer
+  clones this repo and runs `/kestara-start`.
 - Mark questions as **Required**, **Recommended**, or **Conditional**.
-- Skip questions that are demonstrably irrelevant.
+- Skip questions that are demonstrably irrelevant — but say so explicitly when skipping one, rather than
+  silently omitting it.
 - Never repeatedly ask a question that has already been answered and documented.
 - Summarize answers before making major decisions.
 - Record unanswered questions as blockers in `docs/ai-dlc/phase-status.md` when necessary.
@@ -1314,8 +1321,10 @@ When a developer starts a new project in a fresh clone of this repo, open with:
 >
 > Let's begin with **Project Initialization**.
 
-Then ask only the relevant first group of questions from §4. This exact script also lives in
-`.claude/commands/kestara-start.md` for on-demand re-invocation via `/kestara-start`.
+Then ask §4's questions **one at a time** — per §3's Question Behavior rule, never the whole
+Project/Repository/Local Environment list at once. Ask, wait for the answer, record it, ask the next one.
+This exact script also lives in `.claude/commands/kestara-start.md` for on-demand re-invocation via
+`/kestara-start`.
 
 ---
 

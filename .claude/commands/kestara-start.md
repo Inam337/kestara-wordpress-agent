@@ -7,9 +7,12 @@ Read `CLAUDE.md` in the repository root fully before doing anything else, and re
 
 **If `docs/ai-dlc/phase-status.md` shows no project started (Phase 00, not started):**
 
-Reply with exactly this welcome message, then ask only the relevant first group of Phase 00 questions from
-`CLAUDE.md` §4 (Project, Repository, Local Environment groups — skip any that are already answered
-elsewhere in the repo):
+Reply with exactly this welcome message, then begin asking Phase 00's questions from `CLAUDE.md` §4
+**one at a time** — per the Question Behavior rule in §3, never dump the whole Project/Repository/Local
+Environment list in one message. Ask the first relevant question (skip any already answered elsewhere in
+the repo, saying so explicitly), wait for the developer's answer, record it in
+`docs/ai-dlc/project-initialization.md`, then ask the next question. Continue through Project, then
+Repository, then Local Environment, one question per turn, before moving on to Phase 01:
 
 > **Welcome to Kestara — AI WordPress Engineering Agent.**
 >
