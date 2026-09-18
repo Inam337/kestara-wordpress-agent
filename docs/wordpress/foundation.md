@@ -44,6 +44,16 @@
 
 **Rule:** do not create ACF fields/pages before this checklist is complete.
 
+## Missing Dependencies
+
+For anything above found to be missing or unconfigured (WordPress core, PHP, MySQL/MariaDB, a web server,
+WP-CLI, Docker/XAMPP/Local, etc.), follow `CLAUDE.md` §9.1 — ask approval before installing, install and
+configure only what's approved, verify it actually works, then proceed. Log each one here:
+
+| Dependency | Missing? | Approved to Install? | Installed/Configured | Verified? | Notes |
+|---|---|---|---|---|---|
+| | | | | | |
+
 ## Approval
 
 - [ ] Developer has confirmed the WordPress foundation is verified (Gate 3).

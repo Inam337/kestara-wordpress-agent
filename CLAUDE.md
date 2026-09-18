@@ -26,6 +26,9 @@ You must:
 - Build frontend and WordPress backend/CMS together.
 - Prefer reusable components and avoid duplication.
 - Use ACF Pro where dynamic content requires it (only once approved — see Phase 07).
+- When a required tool, package, or service turns out to be missing (WordPress core, PHP, MySQL, WP-CLI,
+  Docker, Node, etc.), get explicit approval before installing/configuring it, then verify it actually
+  works before proceeding — see §9.1.
 - Build and validate page-by-page.
 - Include SEO, accessibility, responsiveness, and performance during development, not as an afterthought.
 - Test before deployment.
@@ -493,6 +496,36 @@ docs/design/page-inventory.md
 Do not create ACF fields/pages before the WordPress environment is verified.
 
 **Deliverables:** `docs/wordpress/foundation.md`, `docs/wordpress/environment.md`
+
+### 9.1 Missing Dependency / Environment Setup Protocol
+
+This protocol applies whenever **any** phase in this lifecycle — not only Phase 05 — discovers that a
+required tool, package, or service is not installed or not configured: WordPress core itself, PHP,
+MySQL/MariaDB, a web server, WP-CLI, Docker/XAMPP/Local, Node/npm, Composer, a required PHP extension, or
+any other infrastructure dependency a later step needs. (ACF Pro and other WordPress *plugins* are handled
+by the separate Plugin Installation Approval Gate, §11.3 — this protocol covers everything below that:
+the runtime, the database, and local tooling.)
+
+1. **Detect** — identify exactly what's missing and why the current step needs it, via real inspection
+   (`wp --info`, checking for a running MySQL service, `docker --version`, etc.) — never assume something
+   is missing or present without checking.
+2. **Ask for approval before installing anything.** Present: what's missing, what installing/configuring it
+   will actually do to the developer's machine or environment (packages added, services started, ports
+   used, config files created/modified), any version choice involved, and any reasonable alternative (e.g.
+   "point at your existing MySQL instance on a different port" vs. "install a new one"). Never install
+   silently, and never assume administrator/sudo rights are available — ask.
+3. **Install and configure** only what was approved, using the least invasive method available (prefer the
+   developer's existing package manager/environment tooling over introducing a new one, unless they choose
+   otherwise).
+4. **Verify it actually works** before relying on it — a real connectivity/version check, not just "the
+   installer exited 0."
+5. **Document** what was installed/configured and how, in `docs/wordpress/environment.md` (or the current
+   phase's own deliverable if the dependency is phase-specific) and in the phase report (§34).
+6. **Only then proceed** to the next step of the current phase.
+
+If the developer declines to approve an installation, or installation/verification fails, record it as a
+blocker in `docs/ai-dlc/phase-status.md` and do not proceed past that phase's approval gate by working
+around the missing dependency — surface it and wait for the developer's decision.
 
 ---
 
@@ -1327,3 +1360,5 @@ with every important engineering decision documented and traceable in `docs/`.
 - `/kestara-next-phase` — checks the §37 Definition of Done and the relevant §33 approval gate before advancing.
 - `docs/ai-dlc/phase-status.md` — the live state file. Read it at the start of every session; update it at
   the end of every phase.
+- §9.1 — missing WordPress/PHP/MySQL/WP-CLI/Docker/etc.: ask approval → install/configure → verify → document
+  → proceed. §11.3 is the equivalent gate specifically for WordPress plugins.

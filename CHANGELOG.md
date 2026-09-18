@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+- New **§9.1 Missing Dependency / Environment Setup Protocol** (`CLAUDE.md`/`AGENTS.md`) — closes a real
+  gap: previously, Phase 00/05 only *asked about and verified* whether WordPress, PHP, MySQL, WP-CLI, or
+  Docker/XAMPP/Local were available, with no instruction for what to do if they weren't. Now, whenever any
+  phase discovers a required runtime/tool/service is missing, the agent must ask explicit approval before
+  installing or configuring it, install/configure only what's approved, verify it actually works, document
+  it, and only then proceed — the same shape as the existing Plugin Installation Approval Gate (§11.3), but
+  for everything below the plugin layer. Referenced from §1 Core Principles and the Quick Reference.
+  `docs/wordpress/foundation.md` seeded template updated with a dependency-tracking table.
+
 ### Changed
 - Phase 04 (Design Handoff) question 2 now explicitly distinguishes **Figma** from a **Claude/Claude Code
   HTML design handoff** (e.g. `*.dc.html` prototype files) as separate design-source formats, instead of
