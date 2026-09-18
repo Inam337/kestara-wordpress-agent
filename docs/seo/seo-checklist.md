@@ -18,7 +18,7 @@
 | 8 | Heading hierarchy? | |
 | 9 | Internal linking? | |
 | 10 | Breadcrumbs? | |
-| 11 | Schema types? | |
+| 11 | Schema types? — ask per page/content type: Organization, LocalBusiness, Article/BlogPosting, Product, FAQPage, BreadcrumbList, Review/AggregateRating, Event, etc. | |
 | 12 | Open Graph? | |
 | 13 | Twitter/social metadata? | |
 | 14 | XML sitemap? | |

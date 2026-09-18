@@ -283,31 +283,63 @@ Capture known plugin constraints early, then perform the detailed plugin-selecti
 *WordPress*
 1. WordPress version?
 2. Single-site or multisite?
-3. Classic editor, Gutenberg, or both?
-4. Classic theme or block theme?
+3. Classic editor, Gutenberg, or both? — must be consistent with question 4; see the note there.
+4. Classic theme or block theme? A **block theme** means Phase 08 (Theme Architecture) is built around
+   `theme.json`, block patterns, and block templates instead of the classic PHP template hierarchy — these
+   are not interchangeable implementation details, they're different theme architectures. Block theme
+   pairs with Gutenberg; classic theme pairs with the classic editor. If the developer wants an unusual
+   combination (e.g. a block theme edited only through the classic editor), flag it explicitly and confirm
+   it's intentional before proceeding.
 5. Custom theme, child theme, or existing theme?
 6. Is ACF Pro available?
 7. Is WP-CLI available?
 8. Is REST API required?
 
 *Frontend*
-9. Custom CSS, Tailwind, Bootstrap, or another approved approach?
-10. JavaScript required?
-11. JavaScript framework required?
+9. What CSS approach is approved? Ask explicitly — do not assume — and note what each implies:
+   - **Custom CSS** — agree on a naming/architecture convention (e.g. BEM, ITCSS, utility classes) before
+     Phase 08/09, so files don't drift inconsistent from page to page.
+   - **Tailwind** — requires a build pipeline (PostCSS/Tailwind CLI or bundler integration) as part of the
+     asset/build strategy (question 22) and Phase 08's theme structure.
+   - **Bootstrap** — decide self-hosted vs CDN and which version. Self-host to avoid an extra third-party
+     request, and ship only the parts of the framework actually used (grid/utilities/specific components)
+     rather than the full bundle — shipping 200+KB of unused CSS for a handful of utility classes is a real
+     Performance-phase (§21) finding, not a hypothetical one.
+   - **Another approved approach** — name it and record why.
+
+   **Rule:** do not introduce multiple CSS frameworks/approaches on the same project unless explicitly
+   required.
+10. Is JavaScript required at all, beyond default WordPress/browser behavior?
+11. If yes — resolve **§7.1 Frontend Architecture Fork** below *before* asking which framework. The fork's
+    answer determines whether "framework" means a progressive-enhancement widget library or the entire
+    rendering layer.
 12. TypeScript required?
-13. Animation library required?
-14. Icon library?
-15. Font strategy?
+13. Animation library required? (name it — e.g. GSAP, Framer Motion, CSS-only)
+14. Icon library? (name it — e.g. an inline SVG sprite, Font Awesome, Heroicons; avoid icon fonts unless the
+    project already standardizes on one, per accessibility best practice)
+15. Font strategy? Ask explicitly:
+    - Self-hosted, subsetted web fonts — the default recommendation for Performance (§21).
+    - A third-party font CDN (e.g. Google Fonts) — note the extra DNS/TLS round trip and render-blocking
+      risk if not later self-hosted/preloaded.
+    - System font stack — no web fonts at all.
 
 *Architecture*
-16. Template strategy?
+16. Template strategy? (depends on question 4 — block templates/patterns vs. the classic PHP template
+    hierarchy)
 17. Component strategy?
-18. Data-fetching strategy?
-19. Form strategy?
-20. SEO strategy?
-21. Caching strategy?
-22. Asset/build strategy?
-23. Translation strategy?
+18. Data-fetching strategy? Depends on §7.1: traditional `WP_Query`/ACF `get_field()`-style calls inside PHP
+    templates, vs. REST/GraphQL calls from a decoupled frontend.
+19. Form strategy? At this phase, decide only *how* forms will be handled — a WordPress plugin, custom
+    code, or a third-party/headless form service. The *specific* form plugin is chosen later, in Phase 07
+    (§11.1 question 16).
+20. SEO strategy? At this phase, decide only the high-level approach — SEO plugin vs. custom
+    meta/schema implementation vs. headless SEO handling — not which specific plugin (that's Phase 07,
+    §11.1 questions 5–8).
+21. Caching strategy? Same scope as above: high-level approach (plugin / CDN / host-level / custom) here;
+    the specific caching plugin is chosen in Phase 07, §11.1 questions 9–15.
+22. Asset/build strategy? (ties to question 9 — e.g. Tailwind requires a build step; plain CSS may not.)
+23. Translation strategy? High-level only — is multilingual needed, at what level. The specific plugin
+    (WPML/Polylang/etc.) is chosen in Phase 07, §11.1 questions 42–45.
 24. Logging/debugging strategy?
 
 *Constraints*
@@ -316,9 +348,27 @@ Capture known plugin constraints early, then perform the detailed plugin-selecti
 27. Are there licensing constraints?
 28. Are there hosting limitations?
 
-**Rule:** Do not introduce multiple CSS frameworks unless explicitly required.
-
 **Deliverables:** `docs/architecture/technical-decisions.md`, `docs/architecture/architecture.md`
+
+### 7.1 Frontend Architecture Fork
+
+Before asking which JavaScript framework (question 11) or settling the data-fetching/form/asset-build
+strategy (questions 18, 19, 22), determine which of these two fundamentally different architectures this
+project is. Getting this wrong is an architecture-affecting assumption that §1's Core Principles forbid
+making without developer input — ask, don't guess:
+
+- **Traditional WordPress theme** — WordPress/PHP renders the HTML. JavaScript, if any, is progressive
+  enhancement on top of server-rendered markup (vanilla JS, Alpine.js, htmx, or a light framework used only
+  for isolated interactive widgets). Data comes from `WP_Query`/ACF's `get_field()` directly inside PHP
+  templates. **This is the default assumption unless the developer says otherwise.**
+- **Decoupled / headless WordPress** — WordPress is a content/data backend only (via REST API or WPGraphQL);
+  a separate frontend application (e.g. React/Next.js, Vue/Nuxt) renders the site and consumes that API.
+  This has major implications: hosting is now two systems instead of one; SEO/meta is handled by the
+  frontend framework, not a classic WordPress SEO plugin's page rendering; forms, previews, and caching all
+  work differently; and Phase 08 (Theme Architecture) may not apply in its usual sense at all.
+
+Confirm this explicitly with the developer before answering questions 11, 18, 19, or 22 — those questions
+mean different things depending on the answer.
 
 ---
 
@@ -786,9 +836,12 @@ docs/acf/content-editing-guide.md
 **Developer Questions**
 1. Primary keywords? 2. Search intent? 3. SEO titles? 4. Meta descriptions? 5. Existing metadata to
 preserve? 6. Canonical requirements? 7. URL structure? 8. Heading hierarchy? 9. Internal linking?
-10. Breadcrumbs? 11. Schema types? 12. Open Graph? 13. Twitter/social metadata? 14. XML sitemap?
-15. Robots.txt? 16. Redirect requirements? 17. Image alt-text rules? 18. Pagination/indexation rules?
-19. Noindex requirements? 20. Search/filter URL indexing rules? 21. Structured data validation requirements?
+10. Breadcrumbs? 11. Schema types? Ask which apply per page/content type rather than accepting a generic
+"yes" — e.g. `Organization`, `LocalBusiness`, `Article`/`BlogPosting`, `Product`, `FAQPage`,
+`BreadcrumbList`, `Review`/`AggregateRating`, `Event`. 12. Open Graph? 13. Twitter/social metadata?
+14. XML sitemap? 15. Robots.txt? 16. Redirect requirements? 17. Image alt-text rules? 18.
+Pagination/indexation rules? 19. Noindex requirements? 20. Search/filter URL indexing rules? 21. Structured
+data validation requirements?
 
 **Validation:** one appropriate H1, heading hierarchy, titles, meta descriptions, canonicals, indexability,
 internal links, schema, Open Graph, sitemap, robots, redirects, image alt text. Track in
