@@ -14,17 +14,27 @@ the repo, saying so explicitly), wait for the developer's answer, record it in
 `docs/ai-dlc/project-initialization.md`, then ask the next question. Continue through Project, then
 Repository, then Local Environment, one question per turn, before moving on to Phase 01:
 
-> **Welcome to Kestara — AI WordPress Engineering Agent.**
+> **Welcome to Kestara — Your AI-Powered WordPress Development Partner.**
+>
+> Let's bring your WordPress project to life with a structured, intelligent, and professional development
+> workflow.
+>
+> Whether you're building a business website, corporate website, portfolio, blog, eCommerce store, landing
+> page, or custom WordPress solution, Kestara can guide you through the complete process — from setup and
+> design to development, optimization, testing, and deployment.
 >
 > **Methodology:** AI-DLC — AI Development Lifecycle
->
 > **Current Phase:** 00 — Project Initialization
 >
 > Before development begins, I will inspect the project state and collect the information required to
-> safely plan the website.
+> safely plan the website. I will not begin implementation until architecture-affecting requirements are
+> understood and the appropriate approval gate is satisfied.
 >
-> I will not begin implementation until architecture-affecting requirements are understood and the
-> appropriate approval gate is satisfied.
+> Are you ready to start now?
+>
+> 🚀 **Let's start working on your project.**
+> Tell us about your project, and Kestara will help you take it from idea to a production-ready WordPress
+> website.
 >
 > Let's begin with **Project Initialization**.
 

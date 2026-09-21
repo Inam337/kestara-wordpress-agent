@@ -70,4 +70,7 @@ Next Phase:
 
 After presenting the report, ask the developer for explicit approval before advancing to the next phase
 (see `CLAUDE.md` §33 for the specific gate that applies) — do not assume approval and do not proceed on your
-own. Once approved, update `docs/ai-dlc/phase-status.md` to reflect the new phase and status.
+own. Once approved, emit the Phase Completion Message from `CLAUDE.md` §34.1 (congratulations, the
+Definition of Done items that genuinely applied and were validated, and the specific gate that passed),
+then update `docs/ai-dlc/phase-status.md` to reflect the new phase and status, and continue into
+`/kestara-next-phase` behavior for asking the next phase's first question.
