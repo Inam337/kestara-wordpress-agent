@@ -74,17 +74,17 @@ short **✅ phase-complete confirmation** — before the next one starts.
 
 ## The AI-DLC lifecycle
 
-```text
-00 Project Initialization   09 Design System          18 Security
-01 Discovery                10 Global Components       19 Final QA
-02 Requirements              11 Page Development         20 Deployment
-03 Technical Decisions       12 ACF / CMS Development    21 Production Verification
-04 Design Handoff            13 SEO                       22 Documentation
-05 WordPress Foundation      14 Responsive QA             23 Maintenance
-06 Content & DB Architecture 15 Accessibility
-07 Plugin Architecture        16 Cross-Browser QA
-08 Theme Architecture         17 Performance
-```
+| # | Phase | # | Phase | # | Phase |
+|---|---|---|---|---|---|
+| 00 | Project Initialization | 09 | Design System | 18 | Security |
+| 01 | Discovery | 10 | Global Components | 19 | Final QA |
+| 02 | Requirements | 11 | Page Development | 20 | Deployment |
+| 03 | Technical Decisions | 12 | ACF / CMS Development | 21 | Production Verification |
+| 04 | Design Handoff | 13 | SEO | 22 | Documentation |
+| 05 | WordPress Foundation | 14 | Responsive QA | 23 | Maintenance |
+| 06 | Content & DB Architecture | 15 | Accessibility | | |
+| 07 | Plugin Architecture | 16 | Cross-Browser QA | | |
+| 08 | Theme Architecture | 17 | Performance | | |
 
 Every phase produces: Objective → Inputs → Developer Questions → Analysis → Decisions → Approval Gate →
 Implementation → Validation → Documentation → Phase Report → **Phase Complete** → Next Phase.
