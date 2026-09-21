@@ -1,9 +1,40 @@
-# Kestara — WordPress AI Engineering Agent
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/logo-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset=".github/assets/logo-light.svg">
+    <img alt="Kestara" src=".github/assets/logo-light.svg" width="320">
+  </picture>
+</p>
 
-> **Build with Precision. Move with Speed.**
+<p align="center"><strong>Build with Precision. Move with Speed.</strong></p>
 
-Kestara is a Claude Code agent framework for building WordPress websites — from a blank folder to a verified
-production deployment — using a structured 24-phase methodology called **AI-DLC (AI Development Lifecycle)**.
+<p align="center">
+  <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-38BDF8?style=flat-square">
+  <img alt="Methodology: AI-DLC" src="https://img.shields.io/badge/methodology-AI--DLC-F59E0B?style=flat-square">
+  <img alt="Built for Claude Code" src="https://img.shields.io/badge/built%20for-Claude%20Code-0B1120?style=flat-square">
+  <img alt="24 phases" src="https://img.shields.io/badge/phases-24-22C55E?style=flat-square">
+</p>
+
+<p align="center">
+  Kestara is a Claude Code agent framework for building WordPress websites — from a blank folder to a
+  verified production deployment — using a structured 24-phase methodology called
+  <strong>AI-DLC (AI Development Lifecycle)</strong>.
+</p>
+
+---
+
+### Contents
+
+- [Why this exists](#why-this-exists)
+- [Quick start](#quick-start)
+- [The AI-DLC lifecycle](#the-ai-dlc-lifecycle)
+- [Repository structure](#repository-structure)
+- [Brand & color palette](#brand--color-palette)
+- [What Kestara will never do](#what-kestara-will-never-do)
+- [License](#license)
+- [Contributing](#contributing)
+
+---
 
 This repository is not a WordPress theme or plugin. It's the **process, the questions, the guardrails, and
 the documentation scaffolding** that Claude Code follows when you clone this repo and start working. Kestara
@@ -15,8 +46,8 @@ getting your approval at defined gates before moving forward.
 Most AI coding tools generate code before anyone has agreed on requirements, stack, or design. That produces
 duplicated components, undocumented decisions, and a QA pass at the end that has to absorb every problem the
 process allowed. Kestara refuses to skip phases: discovery precedes requirements, requirements precede
-architecture, an approved design precedes implementation, and every phase closes with a report before the
-next one starts.
+architecture, an approved design precedes implementation, and every phase closes with a report — and now a
+short **✅ phase-complete confirmation** — before the next one starts.
 
 ## Quick start
 
@@ -56,7 +87,7 @@ next one starts.
 ```
 
 Every phase produces: Objective → Inputs → Developer Questions → Analysis → Decisions → Approval Gate →
-Implementation → Validation → Documentation → Phase Report → Next Phase.
+Implementation → Validation → Documentation → Phase Report → **Phase Complete** → Next Phase.
 
 ## Repository structure
 
@@ -67,15 +98,36 @@ kestara-wordpress-agent/
 ├── .claude/
 │   ├── agents/            # a subagent embodying the same persona, for delegated phase work
 │   └── commands/          # /kestara-start, /kestara-status, /kestara-phase-report, /kestara-next-phase
+├── .github/
+│   ├── assets/            # logo (light/dark) + color-palette swatches used in this README
+│   ├── workflows/         # CI that checks required docs exist
+│   └── ISSUE_TEMPLATE/, PULL_REQUEST_TEMPLATE.md
 ├── docs/                  # every phase deliverable lives here, pre-seeded as real templates:
 │   ├── ai-dlc/            #   phase-status.md is the live "what phase are we in" tracker
 │   ├── architecture/, wordpress/, design/, pages/, acf/, seo/, testing/, performance/,
 │   └── security/, deployment/
 ├── templates/             # blank templates (phase report, requirement, acceptance criteria, ...)
 ├── examples/              # a worked example of a completed phase doc
-├── scripts/               # validation, setup, and deployment-checklist helper scripts
-└── .github/               # PR/issue templates + a CI workflow that checks required docs exist
+└── scripts/               # validation, setup, and deployment-checklist helper scripts
 ```
+
+## Brand & color palette
+
+Kestara's mark pairs a fixed vertical stroke (precision) with a swept, gradient-lit chevron (speed) —
+the same idea as the tagline, drawn once. Logo files live in `.github/assets/` as plain SVG, light and dark
+variants, and are wired into this README through a `<picture>` element so they follow the viewer's OS theme.
+
+| Swatch | Name | Hex | Used for |
+|---|---|---|---|
+| <img src=".github/assets/palette/ink.svg" width="40" height="20" alt="Ink swatch"> | **Ink** | `#0B1120` | Primary text, headings, light-mode logo |
+| <img src=".github/assets/palette/slate.svg" width="40" height="20" alt="Slate swatch"> | **Slate** | `#1E293B` | Secondary text, borders, code blocks |
+| <img src=".github/assets/palette/signal-blue.svg" width="40" height="20" alt="Signal Blue swatch"> | **Signal Blue** | `#38BDF8` | Precision accent — links, phase markers, approval gates |
+| <img src=".github/assets/palette/motion-amber.svg" width="40" height="20" alt="Motion Amber swatch"> | **Motion Amber** | `#F59E0B` | Speed accent — CTAs, in-progress states |
+| <img src=".github/assets/palette/approved-green.svg" width="40" height="20" alt="Approved Green swatch"> | **Approved Green** | `#22C55E` | Passed gates, ✅ phase-complete messages |
+| <img src=".github/assets/palette/paper.svg" width="40" height="20" alt="Paper swatch"> | **Paper** | `#F8FAFC` | Light backgrounds, dark-mode logo |
+
+Signal Blue → Motion Amber is the gradient used across the logo mark itself: **precision easing into speed**,
+left to right.
 
 ## What Kestara will never do
 
