@@ -9,10 +9,10 @@
 <p align="center"><strong>Build with Precision. Move with Speed.</strong></p>
 
 <p align="center">
-  <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-38BDF8?style=flat-square">
-  <img alt="Methodology: AI-DLC" src="https://img.shields.io/badge/methodology-AI--DLC-F59E0B?style=flat-square">
-  <img alt="Built for Claude Code" src="https://img.shields.io/badge/built%20for-Claude%20Code-0B1120?style=flat-square">
-  <img alt="24 phases" src="https://img.shields.io/badge/phases-24-22C55E?style=flat-square">
+  <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2563EB?style=flat-square">
+  <img alt="Methodology: AI-DLC" src="https://img.shields.io/badge/methodology-AI--DLC-D97706?style=flat-square">
+  <img alt="Built for Claude Code" src="https://img.shields.io/badge/built%20for-Claude%20Code-111827?style=flat-square">
+  <img alt="24 phases" src="https://img.shields.io/badge/phases-24-16A34A?style=flat-square">
 </p>
 
 <p align="center">
@@ -113,21 +113,31 @@ kestara-wordpress-agent/
 
 ## Brand & color palette
 
-Kestara's mark pairs a fixed vertical stroke (precision) with a swept, gradient-lit chevron (speed) —
-the same idea as the tagline, drawn once. Logo files live in `.github/assets/` as plain SVG, light and dark
-variants, and are wired into this README through a `<picture>` element so they follow the viewer's OS theme.
+This follows Kestara's approved Design System (v1) handoff. The mark is a geometric kestrel: swept wings, a
+copper-amber precision sliver, and a forward silhouette whose trajectory reads upward — minimum size 24px
+tall, clear space equal to the mark's height. Logo files live in `.github/assets/` as plain SVG, light and
+dark variants, wired into this README through a `<picture>` element so they follow the viewer's OS theme.
+
+**Core palette**
 
 | Swatch | Name | Hex | Used for |
 |---|---|---|---|
-| <img src=".github/assets/palette/ink.svg" width="40" height="20" alt="Ink swatch"> | **Ink** | `#0B1120` | Primary text, headings, light-mode logo |
-| <img src=".github/assets/palette/slate.svg" width="40" height="20" alt="Slate swatch"> | **Slate** | `#1E293B` | Secondary text, borders, code blocks |
-| <img src=".github/assets/palette/signal-blue.svg" width="40" height="20" alt="Signal Blue swatch"> | **Signal Blue** | `#38BDF8` | Precision accent — links, phase markers, approval gates |
-| <img src=".github/assets/palette/motion-amber.svg" width="40" height="20" alt="Motion Amber swatch"> | **Motion Amber** | `#F59E0B` | Speed accent — CTAs, in-progress states |
-| <img src=".github/assets/palette/approved-green.svg" width="40" height="20" alt="Approved Green swatch"> | **Approved Green** | `#22C55E` | Passed gates, ✅ phase-complete messages |
-| <img src=".github/assets/palette/paper.svg" width="40" height="20" alt="Paper swatch"> | **Paper** | `#F8FAFC` | Light backgrounds, dark-mode logo |
+| <img src=".github/assets/palette/deep-graphite.svg" width="40" height="20" alt="Deep Graphite swatch"> | **Deep Graphite** | `#111827` | Primary. Headers, hero, footer, dark sections. |
+| <img src=".github/assets/palette/midnight.svg" width="40" height="20" alt="Midnight swatch"> | **Midnight** | `#080D16` | Primary dark. Gradient base, footer ground. |
+| <img src=".github/assets/palette/kestrel-blue.svg" width="40" height="20" alt="Kestrel Blue swatch"> | **Kestrel Blue** | `#2563EB` | Secondary. Buttons, links, active states, workflow lines. |
+| <img src=".github/assets/palette/copper-gold.svg" width="40" height="20" alt="Copper Gold swatch"> | **Copper Gold** | `#D97706` | Accent. Eyebrows, milestones, precision details. |
+| <img src=".github/assets/palette/kestrel-amber.svg" width="40" height="20" alt="Kestrel Amber swatch"> | **Kestrel Amber** | `#F59E0B` | Accent light. Logo sliver, highlights, hover details. |
+| <img src=".github/assets/palette/cloud-white.svg" width="40" height="20" alt="Cloud White swatch"> | **Cloud White** | `#F8FAFC` | Background. Main page and content sections. |
+| <img src=".github/assets/palette/slate.svg" width="40" height="20" alt="Slate swatch"> | **Slate** | `#64748B` | Muted text, secondary labels, meta. |
 
-Signal Blue → Motion Amber is the gradient used across the logo mark itself: **precision easing into speed**,
-left to right.
+Copper stays a precision accent — logo details, milestones, key highlights — never the dominant color. Usage
+balance across a page: **60%** Cloud White, **25%** Deep Graphite, **10%** Kestrel Blue, **5%** Amber/Copper.
+
+**Typography**
+
+Montserrat carries every heading and body copy — modern, clean, technical. JetBrains Mono is reserved for
+eyebrows, phase numbers, metrics, and anything that should read as machine output (this README's fenced code
+blocks already render in a monospace face on GitHub, which lines up with that intent).
 
 ## What Kestara will never do
 

@@ -1,17 +1,12 @@
-<svg width="460" height="100" viewBox="0 0 460 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kestara">
+<svg width="440" height="110" viewBox="0 0 440 110" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kestara">
   <title>Kestara</title>
-  <defs>
-    <linearGradient id="kestaraMarkLight" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#2563EB"/>
-      <stop offset="55%" stop-color="#38BDF8"/>
-      <stop offset="100%" stop-color="#F59E0B"/>
-    </linearGradient>
-  </defs>
-  <g transform="translate(10,12) scale(1.125)">
-    <rect x="13" y="9" width="9" height="46" rx="4" fill="#0B1120"/>
-    <path d="M25 33 L54 8 L54 20 L33 33 Z" fill="url(#kestaraMarkLight)"/>
-    <path d="M25 33 L54 56 L54 44 L33 33 Z" fill="url(#kestaraMarkLight)"/>
+  <g transform="translate(8,14) scale(0.75)" aria-hidden="true">
+    <path d="M6 6 L70 46 L46 50 Z" fill="#CBD5E1"/>
+    <path d="M18 34 L74 54 L44 60 Z" fill="#94A3B8"/>
+    <path d="M24 52 L54 60 L36 66 Z" fill="#2563EB"/>
+    <path d="M44 48 L122 42 L92 60 L60 64 Z" fill="#111827"/>
+    <path d="M58 62 L92 60 L34 98 Z" fill="#64748B"/>
   </g>
-  <text x="128" y="66" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="800"
-        letter-spacing="2" fill="#0B1120">KESTARA</text>
+  <text x="124" y="70" font-family="Montserrat, 'Segoe UI', system-ui, sans-serif" font-size="42"
+        font-weight="600" letter-spacing="0.24em" fill="#111827">KESTARA</text>
 </svg>
