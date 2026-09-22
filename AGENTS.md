@@ -1409,6 +1409,75 @@ with every important engineering decision documented and traceable in `docs/`.
 
 ---
 
+## 39. Skills-Based Execution Model
+
+**Objective:** Execute the AI-DLC lifecycle (§2–§27) through independent, reusable skills instead of one
+monolithic procedure, so new capabilities (a new integration, a new phase refinement) can be added later
+without editing this whole file.
+
+This section defines *how* work gets executed. It does not replace §2–§33 — those remain the canonical
+source of each phase's questions, deliverables, and approval gates. Skills are the operational layer on top
+of them.
+
+### 39.1 What a skill is
+
+A skill is a self-contained file at `.claude/skills/<skill-slug>/SKILL.md`, structured per
+`templates/skill-template.md`: Purpose, Required Inputs & Prerequisites, Step-by-Step Workflow, Tools &
+Commands, Validation & Testing Requirements, Expected Outputs, Conditions to Advance, Error Handling &
+Recovery. `docs/ai-dlc/skills-registry.md` is the live index of which skills exist and their status on the
+current project — read and update it alongside `docs/ai-dlc/phase-status.md`.
+
+### 39.2 Two categories of skill
+
+- **Phase skills** — one per AI-DLC phase (`phase-00-project-initialization` … `phase-23-maintenance`).
+  These always run, in strict phase order, exactly as §2 already lists them. A phase skill operationalizes
+  *how* to execute its `CLAUDE.md`/`AGENTS.md` phase section; it does not restate every question verbatim
+  (that stays in §4–§27 as the single source of truth) — it tells you the workflow, tools, validation, and
+  error handling for getting that phase's questions asked, its deliverables produced, and its gate
+  satisfied.
+- **Capability skills** — not tied to a phase number. They activate only when their trigger condition
+  appears in the project's own answers (most often during Phase 01 Discovery, Phase 02 Requirements, or
+  Phase 03 Technical Decisions), run inline within whichever phase surfaced the need, and are re-validated
+  before Phase 19 Final QA and Phase 20 Deployment. A project that never triggers a capability skill's
+  condition never activates it — most projects will only ever run a subset of the available capability
+  skills. See `docs/ai-dlc/skills-registry.md` for the current catalog (Third-Party API Integration,
+  Stripe, WooCommerce, and any future addition).
+
+### 39.3 How the agent selects and sequences skills
+
+1. Always run the phase skills in order, 00 → 23. Never skip one — if a phase genuinely doesn't apply to
+   this project, its skill still runs, records why in that phase's deliverable, and marks itself
+   "not applicable" in `docs/ai-dlc/skills-registry.md" rather than being silently omitted.
+2. While executing Phase 01 (Discovery), Phase 02 (Requirements), and Phase 03 (Technical Decisions) in
+   particular, watch developer answers for a capability skill's trigger condition (e.g. "the site needs to
+   call [an external API/service]," "payments via Stripe," "e-commerce via WooCommerce"). The moment a
+   trigger condition is met, add that capability skill to `docs/ai-dlc/skills-registry.md` as `pending`.
+3. Never activate a capability skill on your own inference alone — if a requirement is ambiguous about
+   whether it needs one (e.g. "we might integrate with a CRM later"), ask the developer to confirm before
+   marking it `pending`, per §1's rule against inventing requirements.
+4. Execute a `pending` capability skill inline, within whichever phase surfaced it (a plugin-vs-custom-code
+   integration decision belongs in Phase 07's plugin architecture work; the implementation itself typically
+   lands during Phase 11/12 alongside the pages/CMS fields that need it) — do not force it into a phase that
+   doesn't fit just because of numbering.
+5. A capability skill follows the same approval discipline as a phase skill: propose the architecture, get
+   developer approval (§33-equivalent — capability skills don't have their own numbered gate, so use the
+   Plugin Installation Approval Gate §11.3 when it involves a plugin, or a plain developer-approval stop
+   when it's custom code) before implementing.
+6. Before Phase 19 Final QA and Phase 20 Deployment, re-walk every `active`/`complete` capability skill's
+   Validation & Testing Requirements section to confirm nothing regressed.
+7. Update `docs/ai-dlc/skills-registry.md` status for every skill you touch, in the same session you touch
+   it — it must never fall out of sync with `docs/ai-dlc/phase-status.md`.
+
+### 39.4 Adding a new skill later
+
+To extend Kestara with a new capability (a new integration, a new specialized phase refinement): copy
+`templates/skill-template.md` into `.claude/skills/<new-skill-slug>/SKILL.md`, fill in every section for the
+new capability, add a row to `docs/ai-dlc/skills-registry.md`, and — only if it changes a rule that applies
+project-wide (not just to that one integration) — add a short cross-reference here in §39. Do not edit the
+phase definitions in §4–§27 to shoehorn a capability skill's detail into them.
+
+---
+
 ## Quick Reference — Slash Commands & State
 
 - `/kestara-start` — (re)prints the §36 welcome message and begins/resumes Phase 00.
@@ -1421,3 +1490,6 @@ with every important engineering decision documented and traceable in `docs/`.
   → proceed. §11.3 is the equivalent gate specifically for WordPress plugins.
 - §34.1 — after a phase's approval gate is satisfied, emit the Phase Completion Message (congrats +
   validated Definition of Done items) before asking the next phase's first question.
+- §39 — skills-based execution model. `.claude/skills/phase-NN-*/SKILL.md` operationalizes each phase;
+  `docs/ai-dlc/skills-registry.md` tracks which phase/capability skills exist and their status on this
+  project. `templates/skill-template.md` is the structure every new skill follows.
