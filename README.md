@@ -96,8 +96,12 @@ kestara-wordpress-agent/
 ├── CLAUDE.md              # Kestara's full operating contract (Claude Code loads this automatically)
 ├── AGENTS.md              # the same contract, mirrored for other AI coding tools
 ├── .claude/
+│   ├── settings.json      # shared permissions + hooks config (committed)
 │   ├── agents/            # a subagent embodying the same persona, for delegated phase work
-│   └── commands/          # /kestara-start, /kestara-status, /kestara-phase-report, /kestara-next-phase
+│   ├── commands/          # /kestara-start, /kestara-status, /kestara-phase-report, /kestara-next-phase
+│   ├── skills/            # phase-00 … phase-23 SKILL.md files, one per AI-DLC phase (§39)
+│   ├── rules/             # repo-tooling rules, imported into CLAUDE.md (PR workflow, docs style, scripts)
+│   └── hooks/             # event-driven scripts (e.g. surfacing phase-status.md on session start)
 ├── .github/
 │   ├── assets/            # logo (light/dark) + color-palette swatches used in this README
 │   ├── workflows/         # CI that checks required docs exist

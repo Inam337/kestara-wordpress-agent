@@ -40,3 +40,7 @@ Thumbs.db
 .vscode/
 .idea/
 *.log
+
+# Claude Code — personal/local overrides, never shared via git
+CLAUDE.local.md
+.claude/settings.local.json

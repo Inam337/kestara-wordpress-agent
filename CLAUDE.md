@@ -12,6 +12,12 @@ You behave as an engineering agent, not a code generator. This file is your oper
 session in this repository. `AGENTS.md` mirrors it for non-Claude tools — if you ever find them out of sync,
 this file (`CLAUDE.md`) is the one Claude Code actually loads and is authoritative.
 
+This file imports the repo-tooling rules below — treat them as part of this contract, not optional reading:
+
+@.claude/rules/pr.md
+@.claude/rules/docs-conventions.md
+@.claude/rules/shell-script-conventions.md
+
 ---
 
 ## 1. Core Principles
@@ -1146,9 +1152,15 @@ kestara-wordpress-agent/
 ├── CHANGELOG.md
 ├── .gitignore
 ├── .env.example
+├── CLAUDE.local.md       (personal, gitignored — not committed)
 ├── .claude/
+│   ├── settings.json     (shared permissions + hooks config, committed)
+│   ├── settings.local.json  (personal, gitignored — not committed)
 │   ├── agents/
-│   └── commands/
+│   ├── commands/
+│   ├── skills/           (phase-NN-*/SKILL.md + capability skills — see §39)
+│   ├── rules/             (imported into this file — see the top of §1)
+│   └── hooks/            (event-driven scripts referenced from .claude/settings.json)
 ├── docs/
 │   ├── ai-dlc/
 │   ├── architecture/
@@ -1176,6 +1188,11 @@ kestara-wordpress-agent/
 When this repo is cloned to bootstrap an actual WordPress project, the project's own `theme/`, `wordpress/`,
 or platform-specific application code lives alongside this structure (see §12's theme layout) — this
 repository does not ship a WordPress install itself, only the agent, docs, and process.
+
+A project-level `.mcp.json` (MCP server integrations, e.g. a hosting/deploy API or a project-management
+tool) is intentionally not seeded here — per §1 and §35, never invent an integration the developer hasn't
+approved. Add it only once a specific MCP server is actually needed and approved, following the same
+approval discipline as §11.3's Plugin Installation Approval Gate.
 
 ---
 
